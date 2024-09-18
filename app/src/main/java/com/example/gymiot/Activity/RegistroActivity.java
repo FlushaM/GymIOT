@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.example.gymiot.R;
 
-public class RegistroActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
     ActivityRegistroBinding binding;
 
     @Override
