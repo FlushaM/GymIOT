@@ -1,13 +1,9 @@
 package com.example.gymiot.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.gymiot.R;
 import com.example.gymiot.databinding.ActivityLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -19,10 +15,10 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("LoginActivity", "LoginActivity created");
-        binding=ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mAuth = FirebaseAuth.getInstance(); // Inicializa aquí
+        mAuth = FirebaseAuth.getInstance(); // Inicializa Firebase Auth
         setVariable();
     }
 
@@ -37,7 +33,9 @@ public class LoginActivity extends BaseActivity {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                     if (task.isSuccessful()) {
                         Log.d("LoginActivity", "Inicio de sesión exitoso");
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        // Cambiar la redirección a HomeActivity
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        finish(); // Finaliza LoginActivity para no regresar
                     } else {
                         Log.e("LoginActivity", "Error de inicio de sesión: " + task.getException().getMessage());
                         Toast.makeText(LoginActivity.this, "Autenticación Fallida", Toast.LENGTH_SHORT).show();
