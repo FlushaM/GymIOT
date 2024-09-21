@@ -1,6 +1,7 @@
 package com.example.gymiot.Activity;
-
+import com.google.firebase.auth.FirebaseAuth;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -17,26 +18,23 @@ public class IntroActivity extends BaseActivity {
         binding = ActivityIntroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        mAuth = FirebaseAuth.getInstance();
+
         setVariable();
         // Color hexadecimal correcto para la barra de estado
         getWindow().setStatusBarColor(Color.parseColor("#FFE4B5"));
     }
 
     private void setVariable(){
-        // Corrección: setOnClickListener
-        binding.imageView3.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                // Lógica para el botón de login
+        binding.loginBtn.setOnClickListener(v ->{
+            if (mAuth.getCurrentUser() !=null){
+                startActivity(new Intent(IntroActivity.this, MainActivity.class));
+            }else{
+                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
             }
         });
 
-        binding.textView7.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // Lógica para el botón de registro
-            }
-        });
+        binding.signupBtn.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
     }
 }
 
