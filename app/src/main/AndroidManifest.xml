@@ -12,14 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymIOT"
         tools:targetApi="31">
+
+        <!-- LoginActivity como la actividad principal -->
         <activity
-            android:name=".Activity.BaseActivity"
+            android:name=".Activity.IntroActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Otras actividades -->
+        <activity android:name=".Activity.BaseActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.RegistroActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.LoginActivity"
+        <activity android:name=".Activity.SignupActivityActivity"
             android:exported="false" />
     </application>
 
