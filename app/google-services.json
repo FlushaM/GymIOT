@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "288824208400",
+    "project_id": "gym-search-338fe",
+    "storage_bucket": "gym-search-338fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288824208400:android:45b4e87d4f22416fc4ee95",
+        "android_client_info": {
+          "package_name": "app.gym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOyeQq4gyCymODtZoh6_mufS6MNyyQm3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288824208400:android:52e3513bc8073161c4ee95",
+        "android_client_info": {
+          "package_name": "com.example.gymiot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOyeQq4gyCymODtZoh6_mufS6MNyyQm3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
