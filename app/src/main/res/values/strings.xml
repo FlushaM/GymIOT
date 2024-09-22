@@ -3,6 +3,8 @@
     <string name="gym">GYM</string>
     <string name="search">Search</string>
     <string name="title_activity_register_gym">RegisterGymActivity</string>
+    <string name="gym_image">Descripción de la imagen del gimnasio</string>
+
 
     <string-array name="paises">
         <item>Chile</item>

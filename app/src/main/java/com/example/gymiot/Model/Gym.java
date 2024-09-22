@@ -3,24 +3,22 @@ package com.example.gymiot.Model;
 import java.util.ArrayList;
 
 public class Gym {
-    private String gymName;
-    private String horario;
-    private String mensualidad;
-    private String ubicacion;
-    private String diario;
-    private String imageUrl; // Cambiado de imagenUrl a imageUrl
-    private ArrayList<String> maquinasDisponibles;
+    private String gymName; // gymName en camel case
+    private String horario; // horario en camel case
+    private String mensualidad; // mensualidad en camel case
+    private String diario; // diario en camel case
+    private String imageUrl; // imageUrl en camel case
+    private ArrayList<String> maquinasDisponibles; // máquinas disponibles
 
     // Constructor vacío para Firebase
     public Gym() {
     }
 
     // Constructor con parámetros
-    public Gym(String gymName, String horario, String mensualidad, String ubicacion, String diario, String imageUrl, ArrayList<String> maquinasDisponibles) {
+    public Gym(String gymName, String horario, String mensualidad, String diario, String imageUrl, ArrayList<String> maquinasDisponibles) {
         this.gymName = gymName;
         this.horario = horario;
         this.mensualidad = mensualidad;
-        this.ubicacion = ubicacion;
         this.diario = diario;
         this.imageUrl = imageUrl;
         this.maquinasDisponibles = maquinasDisponibles;
@@ -51,14 +49,6 @@ public class Gym {
         this.mensualidad = mensualidad;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
     public String getDiario() {
         return diario;
     }
@@ -67,11 +57,11 @@ public class Gym {
         this.diario = diario;
     }
 
-    public String getImageUrl() { // Cambiado a imageUrl
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) { // Cambiado a imageUrl
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
