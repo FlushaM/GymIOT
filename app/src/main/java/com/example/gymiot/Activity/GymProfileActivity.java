@@ -37,7 +37,14 @@ public class GymProfileActivity extends AppCompatActivity {
         maquinasTxt = findViewById(R.id.maquinasTxt);
         gymImage = findViewById(R.id.gymImage);
 
-        String gymId = getIntent().getStringExtra("gymId"); // Asumiendo que pasas el ID del gimnasio
+        String gymId = getIntent().getStringExtra("gymId");
+
+        // Verificar si el ID es nulo antes de proceder
+        if (gymId == null || gymId.isEmpty()) {
+            Toast.makeText(this, "ID del gimnasio no encontrado", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         loadGymData(gymId);
     }

@@ -173,7 +173,10 @@ public class MainActivity extends AppCompatActivity {
                 if (snapshots != null) {
                     for (QueryDocumentSnapshot document : snapshots) {
                         Gym gym = document.toObject(Gym.class);
-                        gymList.add(gym);
+                        if (gym != null) {
+                            gym.setId(document.getId()); // Asignar el ID del documento al objeto Gym
+                            gymList.add(gym);
+                        }
                     }
                     adapter.notifyDataSetChanged();
                 }
