@@ -13,11 +13,13 @@
         android:theme="@style/Theme.GymIOT"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.GymProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.HomeActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.GymIOT" />
-        <!-- Register Gym Activity (nombre corregido) -->
+            android:theme="@style/Theme.GymIOT" /> <!-- Register Gym Activity (nombre corregido) -->
         <activity
             android:name=".Activity.RegisterGymActivity"
             android:exported="false"

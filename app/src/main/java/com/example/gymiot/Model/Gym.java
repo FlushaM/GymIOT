@@ -1,25 +1,29 @@
 package com.example.gymiot.Model;
 
+import java.util.ArrayList;
+
 public class Gym {
     private String gymName;
     private String horario;
     private String mensualidad;
     private String ubicacion;
     private String diario;
-    private String imagenUrl; // Para almacenar la URL de la imagen del gimnasio
+    private String imageUrl; // Cambiado de imagenUrl a imageUrl
+    private ArrayList<String> maquinasDisponibles;
 
     // Constructor vacío para Firebase
     public Gym() {
     }
 
     // Constructor con parámetros
-    public Gym(String gymName, String horario, String mensualidad, String ubicacion, String diario, String imagenUrl) {
+    public Gym(String gymName, String horario, String mensualidad, String ubicacion, String diario, String imageUrl, ArrayList<String> maquinasDisponibles) {
         this.gymName = gymName;
         this.horario = horario;
         this.mensualidad = mensualidad;
         this.ubicacion = ubicacion;
         this.diario = diario;
-        this.imagenUrl = imagenUrl;
+        this.imageUrl = imageUrl;
+        this.maquinasDisponibles = maquinasDisponibles;
     }
 
     // Getters y Setters
@@ -63,11 +67,19 @@ public class Gym {
         this.diario = diario;
     }
 
-    public String getImagenUrl() {
-        return imagenUrl;
+    public String getImageUrl() { // Cambiado a imageUrl
+        return imageUrl;
     }
 
-    public void setImagenUrl(String imagenUrl) {
-        this.imagenUrl = imagenUrl;
+    public void setImageUrl(String imageUrl) { // Cambiado a imageUrl
+        this.imageUrl = imageUrl;
+    }
+
+    public ArrayList<String> getMaquinasDisponibles() {
+        return maquinasDisponibles;
+    }
+
+    public void setMaquinasDisponibles(ArrayList<String> maquinasDisponibles) {
+        this.maquinasDisponibles = maquinasDisponibles;
     }
 }

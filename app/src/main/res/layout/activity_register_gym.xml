@@ -29,14 +29,34 @@
                 android:textColorHint="@color/blue_gray"
                 android:textSize="16sp" />
 
-            <!-- Ubicación del gimnasio -->
+            <!-- Spinner para País -->
+            <Spinner
+                android:id="@+id/spinnerPais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <!-- Spinner para Región -->
+            <Spinner
+                android:id="@+id/spinnerRegion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <!-- Spinner para Ciudad -->
+            <Spinner
+                android:id="@+id/spinnerCiudad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
             <EditText
-                android:id="@+id/gymLocationEdt"
+                android:id="@+id/calleEdt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_fondo"
-                android:hint="Ubicación del Gimnasio"
+                android:hint="Calle y número"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_gray"

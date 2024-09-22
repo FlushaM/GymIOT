@@ -118,6 +118,7 @@
                 android:orientation="horizontal">
 
                 <!-- Filtro por ubicación -->
+                <!-- Filtro por país -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -136,7 +137,7 @@
                         android:src="@drawable/ubigym" />
 
                     <Spinner
-                        android:id="@+id/locationSp"
+                        android:id="@+id/spinnerPais"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
@@ -144,7 +145,7 @@
                         android:background="@null" />
                 </LinearLayout>
 
-                <!-- Filtro por precio -->
+                <!-- Filtro por región -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -163,7 +164,7 @@
                         android:src="@drawable/ubigym" />
 
                     <Spinner
-                        android:id="@+id/spinner2"
+                        android:id="@+id/spinnerRegion"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -171,7 +172,7 @@
                         android:background="@null" />
                 </LinearLayout>
 
-                <!-- Filtro por horario -->
+                <!-- Filtro por ciudad -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -189,13 +190,14 @@
                         android:src="@drawable/ubigym" />
 
                     <Spinner
-                        android:id="@+id/spinner3"
+                        android:id="@+id/spinnerCiudad"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@null" />
                 </LinearLayout>
+
 
             </LinearLayout>
 

@@ -3,4 +3,29 @@
     <string name="gym">GYM</string>
     <string name="search">Search</string>
     <string name="title_activity_register_gym">RegisterGymActivity</string>
+
+    <string-array name="paises">
+        <item>Chile</item>
+    </string-array>
+
+    <string-array name="regiones">
+        <item>Atacama</item>
+        <item>Coquimbo</item>
+        <item>Metropolitana</item>
+    </string-array>
+
+    <string-array name="ciudades_atacama">
+        <item>Caldera</item>
+        <item>Copiapo</item>
+    </string-array>
+
+    <string-array name="ciudades_coquimbo">
+        <item>La Serena</item>
+        <item>Coquimbo</item>
+    </string-array>
+
+    <string-array name="ciudades_metropolitana">
+        <item>Santiago</item>
+        <item>Puente Alto</item>
+    </string-array>
 </resources>
