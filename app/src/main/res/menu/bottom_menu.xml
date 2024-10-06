@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/Perfil"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/agregar"
+        android:title=""
+        android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/ajustes"
+        android:title="Ajustes"
+        android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/Salir"
+        android:title="Salir"
+        android:icon="@drawable/baseline_home_24"/>
+
+</menu>
