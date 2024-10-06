@@ -12,7 +12,7 @@
     <item
         android:id="@+id/agregar"
         android:title=""
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_add_24"/>
     <item
         android:id="@+id/ajustes"
         android:title="Ajustes"
