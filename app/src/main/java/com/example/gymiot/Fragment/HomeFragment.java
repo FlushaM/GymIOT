@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.gymiot.Adapter.GymAdapter;
 import com.example.gymiot.Model.Gym;
+import com.example.gymiot.R;
 import com.example.gymiot.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
