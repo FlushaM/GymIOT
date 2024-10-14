@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
@@ -35,7 +37,7 @@ android {
 
     // Habilitar View Binding
     viewBinding {
-        enable = true
+        enabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
