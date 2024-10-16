@@ -1,7 +1,8 @@
 package com.example.gymiot.Activity;
 
-import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
 import com.example.gymiot.R;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Mapbox;
@@ -31,6 +32,7 @@ public class MapsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Libera los recursos del mapa
         if (mapView != null) {
             mapView.onDestroy();
         }
