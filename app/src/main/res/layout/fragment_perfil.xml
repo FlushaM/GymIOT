@@ -3,169 +3,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ececec"
     tools:context=".Fragment.PerfilFragment">
 
-    <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:background="#ececec">
-        <ScrollView
+        android:layout_marginBottom="56dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/top_background" />
+
+                <ImageView
+                    android:id="@+id/profileImageView"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/circle_background"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:srcCompat="@drawable/profile" />
+
+                <ImageView
+                    android:id="@+id/editProfileImageButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_edit"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+                    app:layout_constraintStart_toStartOf="@+id/profileImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/profileImageView"
+                    android:contentDescription="Editar imagen de perfil" />
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre"
+                    android:layout_marginTop="16dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+                    app:layout_constraintStart_toStartOf="@+id/profileImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/editTextName"
+                    app:layout_constraintStart_toStartOf="@+id/editTextName"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="fitXY"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/top_background" />
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/imageView"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView"
-                        app:srcCompat="@drawable/profile" />
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lion Fischer"
-                        android:layout_marginTop="16dp"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-
-                        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                        app:layout_constraintStart_toStartOf="@+id/imageView2"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="lionfischer@gmail.com"
-                        android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="@+id/textView"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-                    <LinearLayout
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonHobbie1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2">
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/ic_1"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:hint="Hobbie1"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart" />
 
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/button"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="32dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/btn_background_1"
-                            android:drawableStart="@drawable/ic_1"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="20dp"
-                            android:text="My Reviews"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            style="@android:style/Widget.Button"
-                            android:textAlignment="viewStart" />
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/button2"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="32dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            style="@android:style/Widget.Button"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/btn_background_1"
-                            android:drawableStart="@drawable/ic_2"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="20dp"
-                            android:text="Account Settings"
-                            android:textAlignment="viewStart" />
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/button3"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="32dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            style="@android:style/Widget.Button"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/btn_background_1"
-                            android:drawableStart="@drawable/ic_3"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="20dp"
-                            android:text="Persoanl Information"
-                            android:textAlignment="viewStart" />
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/button4"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="10dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            style="@android:style/Widget.Button"
-                            android:layout_marginEnd="32dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/btn_background_1"
-                            android:drawableStart="@drawable/ic_4"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="20dp"
-                            android:text="Notification"
-                            android:textAlignment="viewStart" />
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/button5"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="32dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            style="@android:style/Widget.Button"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/btn_background_1"
-                            android:drawableStart="@drawable/ic_5"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="20dp"
-                            android:text="Fingerprint Settings"
-                            android:textAlignment="viewStart" />
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonHobbie2"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/ic_2"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:text="Hobbie2"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart" />
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonHobbie3"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/ic_3"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:text="Hobbie3"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart" />
+
+                    <Button
+                        android:id="@+id/saveProfileButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Guardar Perfil"
+                        android:layout_marginTop="20dp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
