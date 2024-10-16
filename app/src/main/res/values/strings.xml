@@ -1,9 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GymIOT</string>
     <string name="gym">GYM</string>
     <string name="search">Search</string>
     <string name="title_activity_register_gym">RegisterGymActivity</string>
     <string name="gym_image">Descripción de la imagen del gimnasio</string>
+
+    <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">pk.eyJ1IjoibWF0aWFzaGRnIiwiYSI6ImNtMmNnaWx6czExYXUya3B5aGoycGdzeGUifQ.ZWlCtFStd9A4RxsgeIUFeg</string>
 
 
     <string-array name="paises">
