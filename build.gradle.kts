@@ -8,3 +8,17 @@ plugins {
     id("com.android.application") version "8.2.1" apply false
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://api.mapbox.com/downloads/v2/releases/maven") {
+            credentials {
+                username = "mapbox"
+                password = "pk.eyJ1IjoibWF0aWFzaGRnIiwiYSI6ImNtMmNncWdoMjE0bzQya24xa3J3OWs5a3QifQ.Y9F-Fg4-jFDfBoe6Bj67Lw"
+            }
+        }
+    }
+}
+

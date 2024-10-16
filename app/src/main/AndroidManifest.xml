@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Permisos necesarios -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymIOT"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.mapbox.token"
+            android:value="pk.eyJ1IjoibWF0aWFzaGRnIiwiYSI6ImNtMmNncWdoMjE0bzQya24xa3J3OWs5a3QifQ.Y9F-Fg4-jFDfBoe6Bj67Lw" />
+
+        <activity
+            android:name=".Activity.MapsActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.GymProfileActivity"
             android:exported="false" />
