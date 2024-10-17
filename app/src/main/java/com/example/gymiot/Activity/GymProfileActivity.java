@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.gymiot.Model.Gym;
 import com.example.gymiot.R;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GymProfileActivity extends AppCompatActivity {
 
@@ -21,6 +21,7 @@ public class GymProfileActivity extends AppCompatActivity {
     private TextView mensualidadTxt;
     private TextView diarioTxt;
     private TextView maquinasTxt;
+    private TextView diasOperacionTxt;  // Nuevo campo para mostrar los días de operación
     private ImageView gymImage;
 
     @Override
@@ -35,6 +36,7 @@ public class GymProfileActivity extends AppCompatActivity {
         mensualidadTxt = findViewById(R.id.mensualidadTxt);
         diarioTxt = findViewById(R.id.diarioTxt);
         maquinasTxt = findViewById(R.id.maquinasTxt);
+        diasOperacionTxt = findViewById(R.id.diasOperacionTxt);  // Inicializar nuevo campo
         gymImage = findViewById(R.id.gymImage);
 
         String gymId = getIntent().getStringExtra("gymId");
@@ -72,9 +74,17 @@ public class GymProfileActivity extends AppCompatActivity {
 
     private void updateUI(Gym gym) {
         gymNameTxt.setText(gym.getGymName());
-        horarioTxt.setText(gym.getHorario());
         mensualidadTxt.setText(gym.getMensualidad());
         diarioTxt.setText(gym.getDiario());
+
+        // Mostrar los días de operación
+        if (gym.getDiasDisponibles() != null && !gym.getDiasDisponibles().isEmpty()) {
+            String diasOperacion = String.join(", ", gym.getDiasDisponibles());
+            horarioTxt.setText("Días de operación: " + diasOperacion + "\nApertura: " + gym.getHorarioApertura() + " - Cierre: " + gym.getHorarioCierre());
+        } else {
+            horarioTxt.setText("Días de operación no disponibles");
+        }
+
         maquinasTxt.setText(String.join(", ", gym.getMaquinasDisponibles()));
 
         Glide.with(this)

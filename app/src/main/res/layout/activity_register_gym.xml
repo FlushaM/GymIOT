@@ -89,17 +89,90 @@
                 android:textSize="16sp" />
 
             <!-- Horario del gimnasio -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Selecciona los Días de Operación"
+                android:textAlignment="center"
+                android:textColor="@color/blue_gray"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/checkBoxLunes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lunes" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxMartes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Martes" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxMiercoles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Miércoles" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxJueves"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jueves" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxViernes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Viernes" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSabado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sábado" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDomingo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Domingo" />
+            </LinearLayout>
+
             <EditText
-                android:id="@+id/workingHoursEdt"
+                android:id="@+id/openingTimeEdt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_fondo"
-                android:hint="Horario de Atención"
-                android:inputType="text"
+                android:hint="Hora de Apertura"
+                android:inputType="none"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_gray"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <EditText
+                android:id="@+id/closingTimeEdt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_fondo"
+                android:hint="Hora de Cierre"
+                android:inputType="none"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_gray"
+                android:textSize="16sp"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <!-- Máquinas disponibles -->
             <TextView

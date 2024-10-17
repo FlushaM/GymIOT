@@ -14,17 +14,21 @@ public class Gym {
     private String pais;    // Nuevo campo
     private String ciudad;  // Nuevo campo
     private String calle;   // Nuevo campo
+    private ArrayList<String> diasDisponibles;
+    private String horarioApertura;
+    private String horarioCierre;
 
     // Constructor vacío para Firebase
     public Gym() {
     }
 
     // Constructor con parámetros (incluyendo los nuevos campos)
-    public Gym(String id, String gymName, String horario, String mensualidad, String diario, String imageUrl,
-               ArrayList<String> maquinasDisponibles, String region, String pais, String ciudad, String calle) {
+    public Gym(String id, String gymName, ArrayList<String> diasDisponibles, String horarioApertura, String horarioCierre, String mensualidad, String diario, String imageUrl, ArrayList<String> maquinasDisponibles, String region, String pais, String ciudad, String calle) {
         this.id = id;
         this.gymName = gymName;
-        this.horario = horario;
+        this.diasDisponibles = diasDisponibles;
+        this.horarioApertura = horarioApertura;
+        this.horarioCierre = horarioCierre;
         this.mensualidad = mensualidad;
         this.diario = diario;
         this.imageUrl = imageUrl;
@@ -34,6 +38,7 @@ public class Gym {
         this.ciudad = ciudad;
         this.calle = calle;
     }
+
 
     // Getters y Setters
     public String getId() {
@@ -123,4 +128,28 @@ public class Gym {
     public void setCalle(String calle) {
         this.calle = calle;
     }
+    public ArrayList<String> getDiasDisponibles() {
+        return diasDisponibles;
+    }
+
+    public void setDiasDisponibles(ArrayList<String> diasDisponibles) {
+        this.diasDisponibles = diasDisponibles;
+    }
+
+    public String getHorarioApertura() {
+        return horarioApertura;
+    }
+
+    public void setHorarioApertura(String horarioApertura) {
+        this.horarioApertura = horarioApertura;
+    }
+
+    public String getHorarioCierre() {
+        return horarioCierre;
+    }
+
+    public void setHorarioCierre(String horarioCierre) {
+        this.horarioCierre = horarioCierre;
+    }
+
 }
