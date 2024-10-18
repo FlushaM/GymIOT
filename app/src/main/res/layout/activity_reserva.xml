@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,7 +8,7 @@
     android:background="@color/white"
     tools:context=".Activity.ReservaActivity">
 
-    <!-- ScrollView para permitir scroll si hay mucho contenido -->
+    <!-- ScrollView para permitir desplazamiento -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,7 +19,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- CardView para la imagen del gimnasio -->
+            <!-- Imagen del gimnasio en una CardView -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -30,44 +31,34 @@
                     android:id="@+id/gymImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    />
 
             </androidx.cardview.widget.CardView>
+
+            <!-- Nombre del gimnasio -->
+            <TextView
+                android:id="@+id/gymNameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre del Gimnasio"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Sección para seleccionar día -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_background"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-
-                <!-- Título centrado y destacado -->
-                <TextView
-                    android:id="@+id/gymNameTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Sección de Información del Gimnasio con fondo gris -->
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="133dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/grey_background"
                 android:padding="16dp">
 
-                <!-- Contenedor para el título de Horario y el icono -->
+                <!-- Contenedor para el día -->
                 <LinearLayout
-                    android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -85,31 +76,18 @@
                         android:contentDescription="Icono de calendario"
                         android:src="@drawable/calendario" />
 
-
-                    <!-- Título Horario -->
+                    <!-- Título Día -->
                     <TextView
                         android:id="@+id/horarioTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Dia"
+                        android:text="Selecciona el Día"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-                    <!-- Texto para los días de operación -->
-                    <TextView
-                        android:id="@+id/diasOperacionTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toBottomOf="@id/horarioTxt"
-                        app:layout_constraintStart_toStartOf="parent" />
-
                 </LinearLayout>
 
-                <!-- Texto para el valor del horario -->
+                <!-- Spinner para seleccionar el día -->
                 <Spinner
                     android:id="@+id/spinnerDia"
                     android:layout_width="match_parent"
@@ -119,16 +97,16 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Sección para seleccionar la hora -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="133dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/grey_background"
                 android:padding="16dp">
 
-                <!-- Contenedor para el título de Horario y el icono -->
+                <!-- Contenedor para la hora -->
                 <LinearLayout
-                    android:id="@+id/linearLayout1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -137,38 +115,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <!-- Icono de Calendario -->
+                    <!-- Icono de Reloj -->
                     <ImageView
-                        android:id="@+id/iconoMaquinas"
+                        android:id="@+id/iconoReloj"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginEnd="8dp"
-                        android:contentDescription="Icono de calendario"
-                        android:src="@drawable/calendario" />
+                        android:contentDescription="Icono de reloj"
+                        android:src="@drawable/reloj" />
 
-                    <!-- Título Horario -->
+                    <!-- Título Hora -->
                     <TextView
-                        android:id="@+id/maquinasTitle"
+                        android:id="@+id/horaTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Hora"
+                        android:text="Selecciona la Hora"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <!-- Spinner para seleccionar la hora -->
                 <Spinner
                     android:id="@+id/spinnerHora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_below="@id/spinnerDia"
                     android:hint="Selecciona una hora" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
             <!-- Botón de Reservar Hora -->
             <Button

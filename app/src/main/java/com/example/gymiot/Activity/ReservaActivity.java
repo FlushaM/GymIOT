@@ -57,6 +57,7 @@ public class ReservaActivity extends AppCompatActivity {
             return;
         }
 
+        // Cargar datos del gimnasio
         loadGymData(gymId);
 
         // Acción al hacer clic en "Reservar"
@@ -67,6 +68,7 @@ public class ReservaActivity extends AppCompatActivity {
         });
     }
 
+    // Método para cargar los datos del gimnasio desde Firestore
     private void loadGymData(String gymId) {
         db.collection("gyms").document(gymId).get()
                 .addOnCompleteListener(task -> {
@@ -76,6 +78,7 @@ public class ReservaActivity extends AppCompatActivity {
                             gym = document.toObject(Gym.class);
                             if (gym != null) {
                                 gym.setId(document.getId());
+                                // Actualizar la UI con los datos del gimnasio
                                 updateUI(gym);
                             }
                         } else {
@@ -87,26 +90,30 @@ public class ReservaActivity extends AppCompatActivity {
                 });
     }
 
+    // Método para actualizar la interfaz de usuario con los datos del gimnasio
     private void updateUI(Gym gym) {
+        // Establecer el nombre del gimnasio
         gymNameTxt.setText(gym.getGymName());
 
-        // Cargar imagen del gimnasio
+        // Cargar la imagen del gimnasio utilizando Glide
         Glide.with(this)
                 .load(gym.getImageUrl())
+
                 .into(gymImage);
 
-        // Configurar spinner para los días de operación
+        // Configurar el spinner para los días disponibles del gimnasio
         ArrayAdapter<String> diaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, gym.getDiasDisponibles());
         diaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDia.setAdapter(diaAdapter);
 
-        // Configurar spinner para las horas disponibles (horario de apertura a cierre)
+        // Configurar el spinner para las horas disponibles (horario de apertura a cierre)
         ArrayList<String> horasDisponibles = generarHorasDisponibles(gym.getHorarioApertura(), gym.getHorarioCierre());
         ArrayAdapter<String> horaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, horasDisponibles);
         horaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerHora.setAdapter(horaAdapter);
     }
 
+    // Método para generar una lista de horas disponibles basadas en el horario de apertura y cierre
     private ArrayList<String> generarHorasDisponibles(String apertura, String cierre) {
         ArrayList<String> horas = new ArrayList<>();
         int aperturaHora = Integer.parseInt(apertura.split(":")[0]);
@@ -119,6 +126,7 @@ public class ReservaActivity extends AppCompatActivity {
         return horas;
     }
 
+    // Método para realizar una reserva en Firestore
     private void makeReservation(String gymId, String userId, String dia, String hora) {
         Map<String, Object> reservaData = new HashMap<>();
         reservaData.put("gymId", gymId);

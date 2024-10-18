@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="#E0E0E0"> <!-- Fondo gris claro para cada ítem -->
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+    <!-- Nombre del gimnasio -->
+    <TextView
+        android:id="@+id/gymNameTxt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:ignore="MissingConstraints">
+        android:text="Nombre del Gimnasio"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/diaTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Día"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <!-- Día de la reserva -->
+    <TextView
+        android:id="@+id/diaTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Día"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/gymNameTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="4dp"/>
 
-        <TextView
-            android:id="@+id/horaTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hora"
-            android:textSize="16sp" />
+    <!-- Hora de la reserva -->
+    <TextView
+        android:id="@+id/horaTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hora"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/diaTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="16dp"/>
 
-        <Button
-            android:id="@+id/eliminarBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eliminar"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/primaryColor"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-
+    <!-- Botón para eliminar la reserva -->
+    <Button
+        android:id="@+id/eliminarBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"
+        android:backgroundTint="@color/primaryColor"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/horaTxt"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
