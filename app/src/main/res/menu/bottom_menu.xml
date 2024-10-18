@@ -8,7 +8,7 @@
     <item
         android:id="@+id/Perfil"
         android:title="Perfil"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_person_24"/>
     <item
         android:id="@+id/agregar"
         android:title=""
@@ -16,10 +16,10 @@
     <item
         android:id="@+id/ajustes"
         android:title="Ajustes"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_settings_24"/>
     <item
         android:id="@+id/Salir"
         android:title="Salir"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_exit_to_app_24"/>
 
 </menu>

@@ -65,20 +65,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Botón para Registrar Gym -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/registerGymBtn"
-                style="@android:style/Widget.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/red_button_fondo"
-                android:text="Registrar Gym"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+
 
         </LinearLayout>
     </ScrollView>

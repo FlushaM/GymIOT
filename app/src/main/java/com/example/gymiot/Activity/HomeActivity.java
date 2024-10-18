@@ -22,13 +22,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Botón para registrar gimnasio
-        findViewById(R.id.registerGymBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirige a RegisterGymActivity para registrar un gimnasio
-                startActivity(new Intent(HomeActivity.this, RegisterGymActivity.class));
-            }
-        });
+
     }
 }

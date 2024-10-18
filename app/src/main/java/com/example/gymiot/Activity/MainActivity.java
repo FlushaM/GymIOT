@@ -1,11 +1,15 @@
 package com.example.gymiot.Activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.example.gymiot.Fragment.AgregarFragment;
 import com.example.gymiot.Fragment.AjustesFragment;
 import com.example.gymiot.Fragment.HomeFragment;
@@ -13,7 +17,7 @@ import com.example.gymiot.Fragment.PerfilFragment;
 import com.example.gymiot.Fragment.SalirFragment;
 import com.example.gymiot.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
         }
+
+        // Configurar el FloatingActionButton
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Cuando se presiona el botón flotante, cargar AgregarFragment
+                loadFragment(new AgregarFragment());
+            }
+        });
     }
 
     // Método para cargar fragmentos en el contenedor
