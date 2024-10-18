@@ -3,153 +3,92 @@ package com.example.gymiot.Model;
 import java.util.ArrayList;
 
 public class Gym {
-    private String id; // ID del documento
+    private String id;
     private String gymName;
-    private String horario;
+    private String horarioApertura;
+    private String horarioCierre;
+    private ArrayList<String> diasDisponibles;
+    private ArrayList<String> maquinasDisponibles;
+    private String region;
+    private String pais;
+    private String ciudad;
+    private String calle;
     private String mensualidad;
     private String diario;
     private String imageUrl;
-    private ArrayList<String> maquinasDisponibles;
-    private String region;  // Nuevo campo
-    private String pais;    // Nuevo campo
-    private String ciudad;  // Nuevo campo
-    private String calle;   // Nuevo campo
-    private ArrayList<String> diasDisponibles;
-    private String horarioApertura;
-    private String horarioCierre;
 
     // Constructor vacío para Firebase
     public Gym() {
     }
 
-    // Constructor con parámetros (incluyendo los nuevos campos)
-    public Gym(String id, String gymName, ArrayList<String> diasDisponibles, String horarioApertura, String horarioCierre, String mensualidad, String diario, String imageUrl, ArrayList<String> maquinasDisponibles, String region, String pais, String ciudad, String calle) {
+    public Gym(String id, String gymName, String horarioApertura, String horarioCierre, ArrayList<String> diasDisponibles,
+               ArrayList<String> maquinasDisponibles, String region, String pais, String ciudad, String calle,
+               String mensualidad, String diario, String imageUrl) {
         this.id = id;
         this.gymName = gymName;
-        this.diasDisponibles = diasDisponibles;
         this.horarioApertura = horarioApertura;
         this.horarioCierre = horarioCierre;
-        this.mensualidad = mensualidad;
-        this.diario = diario;
-        this.imageUrl = imageUrl;
+        this.diasDisponibles = diasDisponibles;
         this.maquinasDisponibles = maquinasDisponibles;
         this.region = region;
         this.pais = pais;
         this.ciudad = ciudad;
         this.calle = calle;
+        this.mensualidad = mensualidad;
+        this.diario = diario;
+        this.imageUrl = imageUrl;
     }
-
 
     // Getters y Setters
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
 
-    public String getGymName() {
-        return gymName;
-    }
+    public String getGymName() { return gymName; }
 
-    public void setGymName(String gymName) {
-        this.gymName = gymName;
-    }
+    public void setGymName(String gymName) { this.gymName = gymName; }
 
-    public String getHorario() {
-        return horario;
-    }
+    public String getHorarioApertura() { return horarioApertura; }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
+    public void setHorarioApertura(String horarioApertura) { this.horarioApertura = horarioApertura; }
 
-    public String getMensualidad() {
-        return mensualidad;
-    }
+    public String getHorarioCierre() { return horarioCierre; }
 
-    public void setMensualidad(String mensualidad) {
-        this.mensualidad = mensualidad;
-    }
+    public void setHorarioCierre(String horarioCierre) { this.horarioCierre = horarioCierre; }
 
-    public String getDiario() {
-        return diario;
-    }
+    public ArrayList<String> getDiasDisponibles() { return diasDisponibles; }
 
-    public void setDiario(String diario) {
-        this.diario = diario;
-    }
+    public void setDiasDisponibles(ArrayList<String> diasDisponibles) { this.diasDisponibles = diasDisponibles; }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    public ArrayList<String> getMaquinasDisponibles() { return maquinasDisponibles; }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+    public void setMaquinasDisponibles(ArrayList<String> maquinasDisponibles) { this.maquinasDisponibles = maquinasDisponibles; }
 
-    public ArrayList<String> getMaquinasDisponibles() {
-        return maquinasDisponibles;
-    }
+    public String getRegion() { return region; }
 
-    public void setMaquinasDisponibles(ArrayList<String> maquinasDisponibles) {
-        this.maquinasDisponibles = maquinasDisponibles;
-    }
+    public void setRegion(String region) { this.region = region; }
 
-    public String getRegion() {
-        return region;
-    }
+    public String getPais() { return pais; }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
+    public void setPais(String pais) { this.pais = pais; }
 
-    public String getPais() {
-        return pais;
-    }
+    public String getCiudad() { return ciudad; }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
+    public void setCiudad(String ciudad) { this.ciudad = ciudad; }
 
-    public String getCiudad() {
-        return ciudad;
-    }
+    public String getCalle() { return calle; }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
+    public void setCalle(String calle) { this.calle = calle; }
 
-    public String getCalle() {
-        return calle;
-    }
+    public String getMensualidad() { return mensualidad; }
 
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-    public ArrayList<String> getDiasDisponibles() {
-        return diasDisponibles;
-    }
+    public void setMensualidad(String mensualidad) { this.mensualidad = mensualidad; }
 
-    public void setDiasDisponibles(ArrayList<String> diasDisponibles) {
-        this.diasDisponibles = diasDisponibles;
-    }
+    public String getDiario() { return diario; }
 
-    public String getHorarioApertura() {
-        return horarioApertura;
-    }
+    public void setDiario(String diario) { this.diario = diario; }
 
-    public void setHorarioApertura(String horarioApertura) {
-        this.horarioApertura = horarioApertura;
-    }
+    public String getImageUrl() { return imageUrl; }
 
-    public String getHorarioCierre() {
-        return horarioCierre;
-    }
-
-    public void setHorarioCierre(String horarioCierre) {
-        this.horarioCierre = horarioCierre;
-    }
-
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
