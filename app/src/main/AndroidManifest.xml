@@ -20,6 +20,9 @@
         android:theme="@style/Theme.GymIOT"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.MisReservasActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ReservaActivity"
             android:exported="false" />
         <activity

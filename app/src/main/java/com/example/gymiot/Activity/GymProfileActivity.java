@@ -1,6 +1,8 @@
 package com.example.gymiot.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GymProfileActivity extends AppCompatActivity {
 
+    private Button reservarBtn, ubicacionBtn;
     private FirebaseFirestore db;
     private TextView gymNameTxt;
     private TextView horarioTxt;
@@ -23,6 +26,9 @@ public class GymProfileActivity extends AppCompatActivity {
     private TextView maquinasTxt;
     private TextView diasOperacionTxt;  // Nuevo campo para mostrar los días de operación
     private ImageView gymImage;
+
+    private Gym gym;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +44,20 @@ public class GymProfileActivity extends AppCompatActivity {
         maquinasTxt = findViewById(R.id.maquinasTxt);
         diasOperacionTxt = findViewById(R.id.diasOperacionTxt);  // Inicializar nuevo campo
         gymImage = findViewById(R.id.gymImage);
+        reservarBtn = findViewById(R.id.reservarBtn);
 
         String gymId = getIntent().getStringExtra("gymId");
+
+        // Configurar el botón para abrir la actividad de reserva
+        reservarBtn.setOnClickListener(v -> {
+            if (gym != null) {
+                Intent intent = new Intent(GymProfileActivity.this, ReservaActivity.class);
+                intent.putExtra("gymId", gym.getId()); // Usa la instancia gym para obtener el ID
+                startActivity(intent);
+            } else {
+                Toast.makeText(GymProfileActivity.this, "Gimnasio no cargado correctamente", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Verificar si el ID es nulo antes de proceder
         if (gymId == null || gymId.isEmpty()) {

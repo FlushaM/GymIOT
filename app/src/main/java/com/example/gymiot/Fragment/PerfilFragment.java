@@ -1,7 +1,8 @@
 package com.example.gymiot.Fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.gymiot.Activity.MisReservasActivity;
 import com.example.gymiot.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,8 +34,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
-
 public class PerfilFragment extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -43,7 +43,7 @@ public class PerfilFragment extends Fragment {
     private StorageReference storageReference;
 
     private EditText editTextName;
-    private Button buttonHobbie1, buttonHobbie2, buttonHobbie3;
+    private Button buttonHobbie1, buttonHobbie2, buttonHobbie3, buttonVerReservas;
     private ImageView profileImageView;
     private Uri imageUri;
 
@@ -67,6 +67,9 @@ public class PerfilFragment extends Fragment {
         ImageView editProfileImageButton = view.findViewById(R.id.editProfileImageButton);
         Button saveProfileButton = view.findViewById(R.id.saveProfileButton);
 
+        // Nuevo botón para ver reservas
+        buttonVerReservas = view.findViewById(R.id.buttonVerReservas);
+
         // Cargar los datos del perfil actual
         loadUserProfile();
 
@@ -74,6 +77,12 @@ public class PerfilFragment extends Fragment {
         buttonHobbie1.setOnClickListener(v -> openEditDialog(buttonHobbie1));
         buttonHobbie2.setOnClickListener(v -> openEditDialog(buttonHobbie2));
         buttonHobbie3.setOnClickListener(v -> openEditDialog(buttonHobbie3));
+
+        // Listener para ver reservas
+        buttonVerReservas.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MisReservasActivity.class);
+            startActivity(intent);
+        });
 
         // Guardar los cambios en Firebase
         saveProfileButton.setOnClickListener(v -> saveUserProfile());
