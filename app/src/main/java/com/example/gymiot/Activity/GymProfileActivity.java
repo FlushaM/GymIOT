@@ -75,8 +75,8 @@ public class GymProfileActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            // Mapear el documento a un objeto Gym y asignar el ID del documento
-                            Gym gym = document.toObject(Gym.class);
+                            // Aquí se está asignando el gimnasio
+                            gym = document.toObject(Gym.class);
                             if (gym != null) {
                                 gym.setId(document.getId()); // Asignar el ID del documento al objeto Gym
                                 updateUI(gym); // Actualizar la UI con los datos del gimnasio
