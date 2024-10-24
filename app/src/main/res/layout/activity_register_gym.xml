@@ -184,6 +184,8 @@
                 android:textColor="@color/blue_gray"
                 android:textSize="16sp" />
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -219,6 +221,17 @@
                     android:layout_height="wrap_content"
                     android:text="Sala de Natación" />
             </LinearLayout>
+            <EditText
+                android:id="@+id/locationUrlEdt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_fondo"
+                android:hint="URL de ubicación de Google Maps"
+                android:inputType="textUri"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_gray"
+                android:textSize="16sp" />
 
             <!-- Subir Imagen de Perfil -->
             <Button
