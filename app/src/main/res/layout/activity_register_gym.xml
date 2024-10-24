@@ -8,7 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="181dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,13 +154,13 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_fondo"
+                android:clickable="true"
+                android:focusable="false"
                 android:hint="Hora de Apertura"
                 android:inputType="none"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_gray"
-                android:textSize="16sp"
-                android:focusable="false"
-                android:clickable="true"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/closingTimeEdt"
@@ -166,13 +168,13 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_fondo"
+                android:clickable="true"
+                android:focusable="false"
                 android:hint="Hora de Cierre"
                 android:inputType="none"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_gray"
-                android:textSize="16sp"
-                android:focusable="false"
-                android:clickable="true"/>
+                android:textSize="16sp" />
 
             <!-- Máquinas disponibles -->
             <TextView
@@ -183,7 +185,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/blue_gray"
                 android:textSize="16sp" />
-
 
 
             <LinearLayout
@@ -221,6 +222,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sala de Natación" />
             </LinearLayout>
+
             <EditText
                 android:id="@+id/locationUrlEdt"
                 android:layout_width="match_parent"

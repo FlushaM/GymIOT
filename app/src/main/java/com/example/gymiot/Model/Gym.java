@@ -1,6 +1,7 @@
 package com.example.gymiot.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gym {
     private String id;
@@ -15,7 +16,8 @@ public class Gym {
     private String calle;
     private String mensualidad;
     private String diario;
-    private String imageUrl;
+    private List<String> imageUrls; // Cambiado para almacenar múltiples URLs de imágenes
+    private String locationUrl; // Agregado para la URL de Google Maps
 
     // Constructor vacío para Firebase
     public Gym() {
@@ -23,7 +25,7 @@ public class Gym {
 
     public Gym(String id, String gymName, String horarioApertura, String horarioCierre, ArrayList<String> diasDisponibles,
                ArrayList<String> maquinasDisponibles, String region, String pais, String ciudad, String calle,
-               String mensualidad, String diario, String imageUrl) {
+               String mensualidad, String diario, List<String> imageUrls, String locationUrl) {
         this.id = id;
         this.gymName = gymName;
         this.horarioApertura = horarioApertura;
@@ -36,59 +38,120 @@ public class Gym {
         this.calle = calle;
         this.mensualidad = mensualidad;
         this.diario = diario;
-        this.imageUrl = imageUrl;
+        this.imageUrls = imageUrls;
+        this.locationUrl = locationUrl;
     }
 
     // Getters y Setters
-    public  String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getGymName() { return gymName; }
+    public String getGymName() {
+        return gymName;
+    }
 
-    public void setGymName(String gymName) { this.gymName = gymName; }
+    public void setGymName(String gymName) {
+        this.gymName = gymName;
+    }
 
-    public String getHorarioApertura() { return horarioApertura; }
+    public String getHorarioApertura() {
+        return horarioApertura;
+    }
 
-    public void setHorarioApertura(String horarioApertura) { this.horarioApertura = horarioApertura; }
+    public void setHorarioApertura(String horarioApertura) {
+        this.horarioApertura = horarioApertura;
+    }
 
-    public String getHorarioCierre() { return horarioCierre; }
+    public String getHorarioCierre() {
+        return horarioCierre;
+    }
 
-    public void setHorarioCierre(String horarioCierre) { this.horarioCierre = horarioCierre; }
+    public void setHorarioCierre(String horarioCierre) {
+        this.horarioCierre = horarioCierre;
+    }
 
-    public ArrayList<String> getDiasDisponibles() { return diasDisponibles; }
+    public ArrayList<String> getDiasDisponibles() {
+        return diasDisponibles;
+    }
 
-    public void setDiasDisponibles(ArrayList<String> diasDisponibles) { this.diasDisponibles = diasDisponibles; }
+    public void setDiasDisponibles(ArrayList<String> diasDisponibles) {
+        this.diasDisponibles = diasDisponibles;
+    }
 
-    public ArrayList<String> getMaquinasDisponibles() { return maquinasDisponibles; }
+    public ArrayList<String> getMaquinasDisponibles() {
+        return maquinasDisponibles;
+    }
 
-    public void setMaquinasDisponibles(ArrayList<String> maquinasDisponibles) { this.maquinasDisponibles = maquinasDisponibles; }
+    public void setMaquinasDisponibles(ArrayList<String> maquinasDisponibles) {
+        this.maquinasDisponibles = maquinasDisponibles;
+    }
 
-    public String getRegion() { return region; }
+    public String getRegion() {
+        return region;
+    }
 
-    public void setRegion(String region) { this.region = region; }
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
-    public String getPais() { return pais; }
+    public String getPais() {
+        return pais;
+    }
 
-    public void setPais(String pais) { this.pais = pais; }
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
 
-    public String getCiudad() { return ciudad; }
+    public String getCiudad() {
+        return ciudad;
+    }
 
-    public void setCiudad(String ciudad) { this.ciudad = ciudad; }
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
 
-    public String getCalle() { return calle; }
+    public String getCalle() {
+        return calle;
+    }
 
-    public void setCalle(String calle) { this.calle = calle; }
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
 
-    public String getMensualidad() { return mensualidad; }
+    public String getMensualidad() {
+        return mensualidad;
+    }
 
-    public void setMensualidad(String mensualidad) { this.mensualidad = mensualidad; }
+    public void setMensualidad(String mensualidad) {
+        this.mensualidad = mensualidad;
+    }
 
-    public String getDiario() { return diario; }
+    public String getDiario() {
+        return diario;
+    }
 
-    public void setDiario(String diario) { this.diario = diario; }
+    public void setDiario(String diario) {
+        this.diario = diario;
+    }
 
-    public String getImageUrl() { return imageUrl; }
+    public List<String> getImageUrls() { // Getter para las URLs de las imágenes
+        return imageUrls;
+    }
 
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setImageUrls(List<String> imageUrls) { // Setter para las URLs de las imágenes
+        this.imageUrls = imageUrls;
+    }
+
+    public String getLocationUrl() { // Getter para la URL de la ubicación
+        return locationUrl;
+    }
+
+    public void setLocationUrl(String locationUrl) { // Setter para la URL de la ubicación
+        this.locationUrl = locationUrl;
+    }
 }

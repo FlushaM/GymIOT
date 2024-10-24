@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,8 +34,9 @@ public class RegisterGymActivity extends AppCompatActivity {
 
     private CheckBox checkBoxLunes, checkBoxMartes, checkBoxMiercoles, checkBoxJueves, checkBoxViernes, checkBoxSabado, checkBoxDomingo;
     private EditText openingTimeEdt, closingTimeEdt, locationUrlEdt; // Nuevo campo para la URL de Google Maps
-    private static final int PICK_IMAGE_REQUEST = 2;
-    private Uri imageUri;
+    private static final int PICK_IMAGES_REQUEST = 2; // Corregir aquí
+    private List<Uri> imageUris = new ArrayList<>(); // Lista para almacenar las imágenes seleccionadas
+
     private Uri selectedImageUri;
     private ImageView gymProfileImage;
     private FirebaseFirestore db;
@@ -63,6 +65,8 @@ public class RegisterGymActivity extends AppCompatActivity {
         openingTimeEdt = findViewById(R.id.openingTimeEdt);
         closingTimeEdt = findViewById(R.id.closingTimeEdt);
         locationUrlEdt = findViewById(R.id.locationUrlEdt); // Inicializar el campo de URL
+        gymProfileImage = findViewById(R.id.gymProfileImage);
+
 
         db = FirebaseFirestore.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference();
@@ -167,12 +171,82 @@ public class RegisterGymActivity extends AppCompatActivity {
             // Obtener UID del usuario actual
             String userId = mAuth.getCurrentUser().getUid();
 
-            if (imageUri != null) {
-                uploadImageToFirebase(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, locationUrl, userId);
+
+            if (!imageUris.isEmpty()) {
+                uploadImagesToFirebase(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, locationUrl, userId);
             } else {
-                Toast.makeText(this, "Por favor, sube una imagen de perfil", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Por favor, sube al menos una imagen", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Selecciona imágenes"), PICK_IMAGES_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGES_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            if (data.getClipData() != null) { // Si se seleccionaron múltiples imágenes
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    imageUris.add(imageUri);
+                }
+                gymProfileImage.setImageURI(imageUris.get(0)); // Mostrar la primera imagen seleccionada
+            } else if (data.getData() != null) { // Si se seleccionó una sola imagen
+                Uri imageUri = data.getData();
+                imageUris.add(imageUri);
+                gymProfileImage.setImageURI(imageUri);
+            }
+        }
+    }
+
+    private void uploadImagesToFirebase(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String locationUrl, String userId) {
+        List<String> imageUrls = new ArrayList<>();
+
+        for (Uri imageUri : imageUris) {
+            StorageReference fileReference = storageRef.child("gym_images/" + UUID.randomUUID().toString() + ".jpg");
+            fileReference.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        imageUrls.add(uri.toString());
+
+                        // Si todas las imágenes han sido subidas
+                        if (imageUrls.size() == imageUris.size()) {
+                            registerGym(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, imageUrls, locationUrl, userId);
+                        }
+                    }))
+                    .addOnFailureListener(e -> Toast.makeText(RegisterGymActivity.this, "Error al subir la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
+    }
+    private void registerGym(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, List<String> imageUrls, String locationUrl, String userId) {
+        Map<String, Object> gymData = new HashMap<>();
+        gymData.put("gymName", gymName);
+        gymData.put("ciudad", ciudad);
+        gymData.put("region", region);
+        gymData.put("pais", pais);
+        gymData.put("calle", calle);
+        gymData.put("mensualidad", mensualidad);
+        gymData.put("diario", diario.isEmpty() ? "0" : diario);
+        gymData.put("horarioApertura", openingTime);
+        gymData.put("horarioCierre", closingTime);
+        gymData.put("diasDisponibles", diasDisponibles);
+        gymData.put("maquinasDisponibles", maquinasDisponibles);
+        gymData.put("imageUrls", imageUrls); // Guardar lista de URLs de imágenes
+        gymData.put("locationUrl", locationUrl); // Guardar la URL de ubicación
+        gymData.put("ownerId", userId);
+
+        db.collection("gyms").add(gymData)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(RegisterGymActivity.this, "Gimnasio registrado correctamente", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> Toast.makeText(RegisterGymActivity.this, "Error al registrar el gimnasio: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     // Mostrar TimePickerDialog
@@ -187,63 +261,5 @@ public class RegisterGymActivity extends AppCompatActivity {
         }, hour, minute, true);
 
         timePickerDialog.show();
-    }
-
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            gymProfileImage.setImageURI(imageUri);
-        }
-    }
-
-    private void uploadImageToFirebase(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String locationUrl, String userId) {
-        StorageReference fileReference = storageRef.child("gym_images/" + UUID.randomUUID().toString() + ".jpg");
-        fileReference.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                    registerGym(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, imageUrl, locationUrl, userId);
-                }))
-                .addOnFailureListener(e -> Toast.makeText(RegisterGymActivity.this, "Error al subir la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-    }
-
-    private void registerGym(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String imageUrl, String locationUrl, String userId) {
-        Map<String, Object> gymData = new HashMap<>();
-        gymData.put("gymName", gymName);
-        gymData.put("ciudad", ciudad);
-        gymData.put("region", region);
-        gymData.put("pais", pais);
-        gymData.put("calle", calle);
-        gymData.put("mensualidad", mensualidad);
-        gymData.put("diario", diario.isEmpty() ? "0" : diario);
-        gymData.put("horarioApertura", openingTime);
-        gymData.put("horarioCierre", closingTime);
-        gymData.put("diasDisponibles", diasDisponibles);
-        gymData.put("maquinasDisponibles", maquinasDisponibles);
-        gymData.put("imageUrl", imageUrl);
-        gymData.put("locationUrl", locationUrl); // Guardar URL de ubicación
-        gymData.put("ownerId", userId);
-
-        db.collection("gyms").add(gymData)
-                .addOnSuccessListener(documentReference -> {
-                    String gymId = documentReference.getId();
-
-                    db.collection("users").document(userId)
-                            .update("gymId", gymId)
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(RegisterGymActivity.this, "Gimnasio registrado y asociado con el usuario", Toast.LENGTH_SHORT).show();
-                                finish();
-                            })
-                            .addOnFailureListener(e -> Toast.makeText(RegisterGymActivity.this, "Error al asociar el gimnasio con el usuario", Toast.LENGTH_SHORT).show());
-                })
-                .addOnFailureListener(e -> Toast.makeText(RegisterGymActivity.this, "Error al registrar el gimnasio: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

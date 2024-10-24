@@ -97,7 +97,7 @@ public class ReservaActivity extends AppCompatActivity {
 
         // Cargar la imagen del gimnasio utilizando Glide
         Glide.with(this)
-                .load(gym.getImageUrl())
+                .load(gym.getImageUrls())
 
                 .into(gymImage);
 

@@ -45,7 +45,7 @@ public class GymAdapter extends RecyclerView.Adapter<GymAdapter.GymViewHolder> {
 
         // Cargar la imagen del gimnasio usando Glide
         Glide.with(context)
-                .load(gym.getImageUrl())
+                .load(gym.getImageUrls())
                 .apply(new RequestOptions()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
