@@ -1,6 +1,8 @@
 package com.example.gymiot.Model;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Gym {
     private String id;
@@ -16,6 +18,9 @@ public class Gym {
     private String mensualidad;
     private String diario;
     private String imageUrl;
+
+    private List<String> additionalImageUrls; // Campo para las imágenes adicionales
+    private String locationUrl; // Campo para la URL de Google Maps
 
     // Constructor vacío para Firebase
     public Gym() {
@@ -91,4 +96,20 @@ public class Gym {
     public String getImageUrl() { return imageUrl; }
 
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public List<String> getAdditionalImageUrls() {
+        return additionalImageUrls;
+    }
+
+    public void setAdditionalImageUrls(List<String> additionalImageUrls) {
+        this.additionalImageUrls = additionalImageUrls;
+    }
+
+    public String getLocationUrl() {
+        return locationUrl;
+    }
+
+    public void setLocationUrl(String locationUrl) {
+        this.locationUrl = locationUrl;
+    }
 }

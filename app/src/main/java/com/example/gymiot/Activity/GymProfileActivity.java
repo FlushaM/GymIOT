@@ -8,8 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gymiot.Adapter.ImageAdapter;
 import com.example.gymiot.Model.Gym;
 import com.example.gymiot.R;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,6 +22,8 @@ public class GymProfileActivity extends AppCompatActivity {
 
     private Button reservarBtn, ubicacionBtn;
     private FirebaseFirestore db;
+    private RecyclerView additionalImagesRecyclerView; // RecyclerView para las imágenes adicionales
+
     private TextView gymNameTxt;
     private TextView horarioTxt;
     private TextView mensualidadTxt;
@@ -65,6 +70,16 @@ public class GymProfileActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        additionalImagesRecyclerView = findViewById(R.id.additionalImagesRecyclerView);
+        additionalImagesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        if (gym.getAdditionalImageUrls() != null && !gym.getAdditionalImageUrls().isEmpty()) {
+            ImageAdapter imageAdapter = new ImageAdapter(this, gym.getAdditionalImageUrls());
+            additionalImagesRecyclerView.setAdapter(imageAdapter);
+        }
+
+
 
         loadGymData(gymId);
     }
