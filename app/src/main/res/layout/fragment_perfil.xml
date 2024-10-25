@@ -151,11 +151,11 @@
                         android:id="@+id/buttonVerReservas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ver Mis Reservas"
-                        android:backgroundTint="@color/primaryColor"
-                        android:textColor="@android:color/white"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp" />
+                        android:layout_marginTop="16dp"
+                        android:backgroundTint="@color/primaryColor"
+                        android:text="Ver Mis Reservas"
+                        android:textColor="@android:color/white" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -175,15 +175,7 @@
                             android:layout_marginTop="20dp"
                             android:text="Modificar PerfilGym" />
 
-                        <Button
-                            android:id="@+id/buttonReservasGym"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="16dp"
-                            android:backgroundTint="@color/primaryColor"
-                            android:text="Ver Mis Reservas"
-                            android:textColor="@android:color/white" />
+
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
