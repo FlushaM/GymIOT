@@ -282,14 +282,26 @@ public class AgregarFragment extends Fragment {
         gymData.put("ownerId", userId);
         gymData.put("additionalImageUrls", additionalImageUrls); // Guardar las imágenes adicionales
 
+        // Añadir el gimnasio a la colección 'gyms'
         db.collection("gyms").add(gymData)
                 .addOnSuccessListener(documentReference -> {
-                    String gymId = documentReference.getId();
+                    String gymId = documentReference.getId();  // Obtener el ID del gimnasio creado
+                    // Imprimir en el log el ID del gimnasio creado
+                    System.out.println("Gym ID: " + gymId);
+
+                    // Actualizar el documento del usuario con el gymId
                     db.collection("users").document(userId)
-                            .update("gymId", gymId)
-                            .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Gimnasio registrado correctamente", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al asociar el gimnasio con el usuario", Toast.LENGTH_SHORT).show());
+                            .update("gymId", gymId) // Aquí actualizamos el campo gymId en el documento del usuario
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(getContext(), "Gimnasio registrado correctamente", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getContext(), "Error al asociar el gimnasio con el usuario", Toast.LENGTH_SHORT).show();
+                            });
                 })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al registrar el gimnasio", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Error al registrar el gimnasio", Toast.LENGTH_SHORT).show();
+                });
     }
+
 }

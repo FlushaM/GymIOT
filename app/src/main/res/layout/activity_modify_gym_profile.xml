@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/gymNameEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del Gimnasio"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mensualidadEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Mensualidad"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gymNameEdt"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/diarioEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Diario"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mensualidadEdt"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/horarioAperturaEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Hora de Apertura"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/diarioEdt" />
+
+    <EditText
+        android:id="@+id/horarioCierreEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Hora de Cierre"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horarioAperturaEdt" />
+
+    <ImageView
+        android:id="@+id/gymImage"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horarioCierreEdt"
+        android:scaleType="centerCrop" />
+
+    <Button
+        android:id="@+id/saveChangesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar Cambios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gymImage" />
+
+    <Button
+        android:id="@+id/viewReservationsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver Reservas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveChangesBtn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

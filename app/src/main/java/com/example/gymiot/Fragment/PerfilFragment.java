@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.gymiot.Activity.MisReservasActivity;
+import com.example.gymiot.Activity.ModifyGymProfileActivity; // Agregado para la nueva actividad
 import com.example.gymiot.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,7 +44,7 @@ public class PerfilFragment extends Fragment {
     private StorageReference storageReference;
 
     private EditText editTextName;
-    private Button buttonHobbie1, buttonHobbie2, buttonHobbie3, buttonVerReservas;
+    private Button buttonHobbie1, buttonHobbie2, buttonHobbie3, buttonVerReservas, saveProfileButtonGym; // Añadido el botón "Modificar PerfilGym"
     private ImageView profileImageView;
     private Uri imageUri;
 
@@ -66,9 +67,8 @@ public class PerfilFragment extends Fragment {
 
         ImageView editProfileImageButton = view.findViewById(R.id.editProfileImageButton);
         Button saveProfileButton = view.findViewById(R.id.saveProfileButton);
-
-        // Nuevo botón para ver reservas
         buttonVerReservas = view.findViewById(R.id.buttonVerReservas);
+        saveProfileButtonGym = view.findViewById(R.id.saveProfileButtonGym); // Referencia al botón "Modificar PerfilGym"
 
         // Cargar los datos del perfil actual
         loadUserProfile();
@@ -90,7 +90,32 @@ public class PerfilFragment extends Fragment {
         // Listener para cambiar la imagen de perfil
         editProfileImageButton.setOnClickListener(v -> openFileChooser());
 
+        // Listener para el botón "Modificar PerfilGym"
+        saveProfileButtonGym.setOnClickListener(v -> {
+            // Ir a la actividad de modificar perfil del gimnasio
+            Intent intent = new Intent(getActivity(), ModifyGymProfileActivity.class);
+
+            // Pasar el gymId al Intent (asegúrate de obtener el gymId del usuario logueado)
+            // Aquí deberías recuperar el gymId desde el perfil del usuario o de Firestore
+            String gymId = getGymIdForCurrentUser(); // Método para obtener gymId del usuario actual
+            intent.putExtra("gymId", gymId);
+            startActivity(intent);
+        });
+
         return view;
+    }
+
+    // Método para obtener el gymId asociado al usuario logueado
+    private String getGymIdForCurrentUser() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DocumentReference docRef = db.collection("users").document(userId);
+            // Aquí se debe realizar una consulta para obtener el gymId del documento del usuario
+            // Simulando un gymId para el ejemplo, este debe ser reemplazado con la lógica real:
+            return "gymIdDeEjemplo"; // Reemplaza con la lógica adecuada
+        }
+        return null; // Manejar el caso en que el usuario no tenga un gimnasio
     }
 
     // Método para abrir un cuadro de diálogo para editar el hobbie
@@ -125,6 +150,21 @@ public class PerfilFragment extends Fragment {
                     buttonHobbie1.setText(documentSnapshot.getString("hobbie1"));
                     buttonHobbie2.setText(documentSnapshot.getString("hobbie2"));
                     buttonHobbie3.setText(documentSnapshot.getString("hobbie3"));
+
+                    // Obtener el gymId del usuario
+                    String gymId = documentSnapshot.getString("gymId");
+                    if (gymId != null && !gymId.isEmpty()) {
+                        // Mostrar el botón de modificar gimnasio si el usuario tiene un gym
+                        saveProfileButtonGym.setVisibility(View.VISIBLE);
+                        saveProfileButtonGym.setOnClickListener(v -> {
+                            Intent intent = new Intent(getActivity(), ModifyGymProfileActivity.class);
+                            intent.putExtra("gymId", gymId);
+                            startActivity(intent);
+                        });
+                    } else {
+                        // Ocultar el botón si no tiene gimnasio
+                        saveProfileButtonGym.setVisibility(View.GONE);
+                    }
 
                     // Cargar la imagen de perfil desde Firebase Storage
                     String imageUrl = documentSnapshot.getString("profileImageUrl");
