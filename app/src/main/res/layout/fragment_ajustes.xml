@@ -5,10 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.AjustesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Switch para activar/desactivar el modo oscuro -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modo Oscuro"
+            android:textSize="18sp"
+            android:layout_gravity="start" />
+
+        <Switch
+            android:id="@+id/darkModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="Modo Oscuro" />
+
+    </LinearLayout>
 
 </FrameLayout>

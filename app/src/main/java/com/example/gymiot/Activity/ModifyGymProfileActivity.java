@@ -1,7 +1,6 @@
 package com.example.gymiot.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +55,11 @@ public class ModifyGymProfileActivity extends AppCompatActivity {
         }
 
         saveChangesBtn.setOnClickListener(v -> saveGymChanges());
-        viewReservationsBtn.setOnClickListener(v -> viewReservations());
+        viewReservationsBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ModifyGymProfileActivity.this, ViewReservationsActivity.class);
+            intent.putExtra("gymId", gymId); // Asegúrate de pasar el gymId aquí
+            startActivity(intent);
+        });
     }
 
     private void loadGymData(String gymId) {
@@ -94,11 +97,5 @@ public class ModifyGymProfileActivity extends AppCompatActivity {
         db.collection("gyms").document(gymId).update(gymData)
                 .addOnSuccessListener(aVoid -> Toast.makeText(ModifyGymProfileActivity.this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(ModifyGymProfileActivity.this, "Error al actualizar el perfil", Toast.LENGTH_SHORT).show());
-    }
-
-    private void viewReservations() {
-        Intent intent = new Intent(ModifyGymProfileActivity.this, ViewReservationsActivity.class);
-        intent.putExtra("gymId", gymId);
-        startActivity(intent);
     }
 }

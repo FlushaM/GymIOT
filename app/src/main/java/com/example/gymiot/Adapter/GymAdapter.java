@@ -57,8 +57,8 @@ public class GymAdapter extends RecyclerView.Adapter<GymAdapter.GymViewHolder> {
         // Verificación del ID antes de iniciar la actividad de perfil
         Log.d("GymAdapter", "ID del gimnasio enviado: " + gym.getId());
 
-        // Configurar el botón `>` para redirigir al perfil del gimnasio
-        holder.perfilBtn.setOnClickListener(v -> {
+        // Configurar el OnClickListener para toda la tarjeta
+        holder.itemView.setOnClickListener(v -> {
             String gymId = gym.getId();
             if (gymId != null && !gymId.isEmpty()) {
                 Intent intent = new Intent(context, GymProfileActivity.class);
@@ -70,7 +70,6 @@ public class GymAdapter extends RecyclerView.Adapter<GymAdapter.GymViewHolder> {
         });
     }
 
-
     @Override
     public int getItemCount() {
         return gymList.size();
@@ -80,13 +79,11 @@ public class GymAdapter extends RecyclerView.Adapter<GymAdapter.GymViewHolder> {
 
         ImageView fotogym;
         TextView tituloTxt;
-        TextView perfilBtn;
 
         public GymViewHolder(@NonNull View itemView) {
             super(itemView);
             fotogym = itemView.findViewById(R.id.fotogym);
             tituloTxt = itemView.findViewById(R.id.tituloTxt);
-            perfilBtn = itemView.findViewById(R.id.textView14); // Asegúrate de que este sea el botón `>`
         }
     }
 }

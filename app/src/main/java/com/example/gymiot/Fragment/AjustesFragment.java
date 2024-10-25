@@ -1,66 +1,64 @@
 package com.example.gymiot.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Switch;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 import com.example.gymiot.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AjustesFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class AjustesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Switch darkModeSwitch;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public AjustesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AjustesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AjustesFragment newInstance(String param1, String param2) {
-        AjustesFragment fragment = new AjustesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        // Obtener las preferencias para guardar el estado del modo oscuro
+        sharedPreferences = getActivity().getSharedPreferences("AppSettingsPrefs", 0);
+        editor = sharedPreferences.edit();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ajustes, container, false);
+        View view = inflater.inflate(R.layout.fragment_ajustes, container, false);
+
+        darkModeSwitch = view.findViewById(R.id.darkModeSwitch);
+
+        // Leer el estado guardado del modo oscuro
+        boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
+
+        // Configurar el estado inicial del Switch
+        darkModeSwitch.setChecked(isDarkModeOn);
+
+        // Cambiar el modo oscuro según el estado del switch
+        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Activar modo oscuro
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean("isDarkModeOn", true);
+            } else {
+                // Desactivar modo oscuro
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean("isDarkModeOn", false);
+            }
+            editor.apply(); // Guardar los cambios
+        });
+
+        return view;
     }
 }

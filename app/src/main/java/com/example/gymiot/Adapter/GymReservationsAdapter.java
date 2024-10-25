@@ -55,8 +55,8 @@ public class GymReservationsAdapter extends RecyclerView.Adapter<GymReservations
 
         public GymReservationViewHolder(@NonNull View itemView) {
             super(itemView);
-            diaReservaTxt = itemView.findViewById(R.id.diaReservaTxt);
-            horaReservaTxt = itemView.findViewById(R.id.horaReservaTxt);
+            diaReservaTxt = itemView.findViewById(R.id.diaTxt);
+            horaReservaTxt = itemView.findViewById(R.id.horaTxt);
             verReservaBtn = itemView.findViewById(R.id.verReservaBtn);
         }
     }

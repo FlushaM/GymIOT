@@ -294,6 +294,11 @@ public class AgregarFragment extends Fragment {
                             .update("gymId", gymId) // Aquí actualizamos el campo gymId en el documento del usuario
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(getContext(), "Gimnasio registrado correctamente", Toast.LENGTH_SHORT).show();
+
+                                // Redirigir a la pantalla principal (HomeFragment) al completar el registro
+                                Intent intent = new Intent(getActivity(), HomeFragment.class);  // Aquí debes asegurarte de que HomeActivity sea la actividad principal
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);  // Limpia el stack para evitar volver al login
+                                startActivity(intent);
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(getContext(), "Error al asociar el gimnasio con el usuario", Toast.LENGTH_SHORT).show();
