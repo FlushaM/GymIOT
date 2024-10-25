@@ -1,7 +1,6 @@
 package com.example.gymiot.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,53 +10,45 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.gymiot.Activity.GymProfileActivity;
 import com.example.gymiot.R;
 
 import java.util.List;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
+    private List<String> imageUrls;
     private Context context;
-    private List<Uri> imageUris; // Lista de Uris de las imágenes adicionales
 
-    // Cambiado para aceptar List<Uri> en lugar de List<String>
-    public ImageAdapter(Context context, List<Uri> imageUris) {
+    public ImageAdapter(List<String> imageUrls, Context context) {
+        this.imageUrls = imageUrls;
         this.context = context;
-        this.imageUris = imageUris;
     }
-
-    public ImageAdapter(GymProfileActivity context, List<String> additionalImageUrls) {
-    }
-
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.image_item, parent, false);
-        return new ViewHolder(view);
+        return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Uri imageUri = imageUris.get(position);
-        // Utilizamos Glide para cargar las imágenes desde las URIs
-        Glide.with(context)
-                .load(imageUri)
-                .into(holder.imageView);
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        String imageUrl = imageUrls.get(position);
+        Glide.with(context).load(imageUrl).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return imageUris.size(); // Número de imágenes
+        return imageUrls.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(@NonNull View itemView) {
+        ImageView imageView;
+
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView); // El ID de la imagen en la vista del adaptador
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

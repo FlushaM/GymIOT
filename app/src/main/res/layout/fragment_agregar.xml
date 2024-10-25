@@ -8,7 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="70dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,13 +154,13 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_fondo"
+                android:clickable="true"
+                android:focusable="false"
                 android:hint="Hora de Apertura"
                 android:inputType="none"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_gray"
-                android:textSize="16sp"
-                android:focusable="false"
-                android:clickable="true"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/closingTimeEdt"
@@ -166,13 +168,13 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_fondo"
+                android:clickable="true"
+                android:focusable="false"
                 android:hint="Hora de Cierre"
                 android:inputType="none"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_gray"
-                android:textSize="16sp"
-                android:focusable="false"
-                android:clickable="true"/>
+                android:textSize="16sp" />
 
             <!-- Máquinas disponibles -->
             <TextView
@@ -220,6 +222,29 @@
                     android:text="Sala de Natación" />
             </LinearLayout>
 
+
+            <Button
+                android:id="@+id/openMapsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/red_button_fondo"
+                android:text="Abrir Google Maps"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/urlUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_fondo"
+                android:hint="Dirección Maps (URL)"
+                android:inputType="textUri"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_gray"
+                android:textSize="16sp" />
+
             <!-- Subir Imagen de Perfil -->
             <Button
                 android:id="@+id/uploadImageButton"
@@ -238,6 +263,16 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/subirfoto" />
+
+            <Button
+                android:id="@+id/uploadMoreImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/red_button_fondo"
+                android:text="Subir 4 fotos del gym"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <!-- Botón para Registrar el Gimnasio -->
             <androidx.appcompat.widget.AppCompatButton

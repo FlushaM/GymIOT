@@ -30,15 +30,20 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class AgregarFragment extends Fragment {
 
     private CheckBox checkBoxLunes, checkBoxMartes, checkBoxMiercoles, checkBoxJueves, checkBoxViernes, checkBoxSabado, checkBoxDomingo;
-    private EditText openingTimeEdt, closingTimeEdt;
+    private EditText openingTimeEdt, closingTimeEdt, urlUbicacionEdt;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_ADDITIONAL_IMAGES_REQUEST = 2;
+    private static final int MAX_ADDITIONAL_IMAGES = 4;
+
     private Uri imageUri;
+    private List<Uri> additionalImageUris = new ArrayList<>();
     private ImageView gymProfileImage;
     private FirebaseFirestore db;
     private StorageReference storageRef;
@@ -67,7 +72,9 @@ public class AgregarFragment extends Fragment {
         openingTimeEdt = view.findViewById(R.id.openingTimeEdt);
         closingTimeEdt = view.findViewById(R.id.closingTimeEdt);
         gymProfileImage = view.findViewById(R.id.gymProfileImage);
+        urlUbicacionEdt = view.findViewById(R.id.urlUbicacion); // Campo para la URL de Maps
 
+        // Agregar la funcionalidad de selección de hora
         openingTimeEdt.setOnClickListener(v -> showTimePickerDialog(openingTimeEdt));
         closingTimeEdt.setOnClickListener(v -> showTimePickerDialog(closingTimeEdt));
 
@@ -114,12 +121,42 @@ public class AgregarFragment extends Fragment {
         });
 
         Button uploadImageButton = view.findViewById(R.id.uploadImageButton);
+        Button uploadAdditionalImagesButton = view.findViewById(R.id.uploadMoreImage); // Botón para imágenes adicionales
         Button registerGymBtn = view.findViewById(R.id.registerGymBtn);
+        Button openMapsButton = view.findViewById(R.id.openMapsButton); // Botón para abrir Google Maps
 
         uploadImageButton.setOnClickListener(v -> openFileChooser());
+        uploadAdditionalImagesButton.setOnClickListener(v -> openAdditionalImagesChooser()); // Manejar imágenes adicionales
+        openMapsButton.setOnClickListener(v -> openGoogleMaps()); // Funcionalidad para abrir Google Maps
         registerGymBtn.setOnClickListener(v -> registerGym());
 
         return view;
+    }
+
+    // Método para abrir el selector de hora
+    private void showTimePickerDialog(final EditText timeEditText) {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                (view, hourOfDay, minuteOfHour) -> {
+                    String time = String.format("%02d:%02d", hourOfDay, minuteOfHour);
+                    timeEditText.setText(time);
+                }, hour, minute, true);
+        timePickerDialog.show();
+    }
+
+    private void openGoogleMaps() {
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            Toast.makeText(getContext(), "Google Maps no está instalado", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openFileChooser() {
@@ -129,26 +166,34 @@ public class AgregarFragment extends Fragment {
         startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), PICK_IMAGE_REQUEST);
     }
 
+    private void openAdditionalImagesChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Selecciona hasta 4 imágenes"), PICK_ADDITIONAL_IMAGES_REQUEST);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             gymProfileImage.setImageURI(imageUri);
         }
-    }
 
-    private void showTimePickerDialog(final EditText timeEditText) {
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), (view, hourOfDay, minute1) -> {
-            String time = String.format("%02d:%02d", hourOfDay, minute1);
-            timeEditText.setText(time);
-        }, hour, minute, true);
-
-        timePickerDialog.show();
+        if (requestCode == PICK_ADDITIONAL_IMAGES_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count && additionalImageUris.size() < MAX_ADDITIONAL_IMAGES; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    additionalImageUris.add(imageUri);
+                }
+            } else if (data.getData() != null && additionalImageUris.size() < MAX_ADDITIONAL_IMAGES) {
+                additionalImageUris.add(data.getData());
+            }
+        }
     }
 
     private void registerGym() {
@@ -161,6 +206,7 @@ public class AgregarFragment extends Fragment {
         String diario = ((EditText) getView().findViewById(R.id.dailyPriceEdt)).getText().toString().trim();
         String openingTime = openingTimeEdt.getText().toString().trim();
         String closingTime = closingTimeEdt.getText().toString().trim();
+        String urlUbicacion = urlUbicacionEdt.getText().toString().trim(); // URL de la ubicación de Google Maps
 
         ArrayList<String> diasDisponibles = new ArrayList<>();
         if (checkBoxLunes.isChecked()) diasDisponibles.add("Lunes");
@@ -181,23 +227,44 @@ public class AgregarFragment extends Fragment {
         String userId = mAuth.getCurrentUser().getUid();
 
         if (imageUri != null) {
-            uploadImageToFirebase(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, userId);
+            uploadImageToFirebase(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, urlUbicacion, userId);
         } else {
             Toast.makeText(getContext(), "Por favor, sube una imagen de perfil", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void uploadImageToFirebase(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String userId) {
+    private void uploadImageToFirebase(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String urlUbicacion, String userId) {
         StorageReference fileReference = storageRef.child("gym_images/" + UUID.randomUUID().toString() + ".jpg");
         fileReference.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
-                    registerGymInFirestore(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, imageUrl, userId);
+                    uploadAdditionalImages(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, imageUrl, urlUbicacion, userId);
                 }))
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al subir la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    private void registerGymInFirestore(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String imageUrl, String userId) {
+    private void uploadAdditionalImages(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String imageUrl, String urlUbicacion, String userId) {
+        List<String> additionalImageUrls = new ArrayList<>();
+
+        if (additionalImageUris.isEmpty()) {
+            registerGymInFirestore(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, imageUrl, urlUbicacion, userId, additionalImageUrls);
+            return;
+        }
+
+        for (Uri additionalImageUri : additionalImageUris) {
+            StorageReference additionalImageRef = storageRef.child("gym_images/" + UUID.randomUUID().toString() + ".jpg");
+            additionalImageRef.putFile(additionalImageUri)
+                    .addOnSuccessListener(taskSnapshot -> additionalImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        additionalImageUrls.add(uri.toString());
+                        if (additionalImageUrls.size() == additionalImageUris.size()) {
+                            registerGymInFirestore(gymName, ciudad, region, pais, calle, mensualidad, diario, openingTime, closingTime, maquinasDisponibles, diasDisponibles, imageUrl, urlUbicacion, userId, additionalImageUrls);
+                        }
+                    }))
+                    .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al subir una imagen adicional: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    private void registerGymInFirestore(String gymName, String ciudad, String region, String pais, String calle, String mensualidad, String diario, String openingTime, String closingTime, ArrayList<String> maquinasDisponibles, ArrayList<String> diasDisponibles, String imageUrl, String urlUbicacion, String userId, List<String> additionalImageUrls) {
         Map<String, Object> gymData = new HashMap<>();
         gymData.put("gymName", gymName);
         gymData.put("ciudad", ciudad);
@@ -211,7 +278,9 @@ public class AgregarFragment extends Fragment {
         gymData.put("diasDisponibles", diasDisponibles);
         gymData.put("maquinasDisponibles", maquinasDisponibles);
         gymData.put("imageUrl", imageUrl);
+        gymData.put("locationUrl", urlUbicacion);
         gymData.put("ownerId", userId);
+        gymData.put("additionalImageUrls", additionalImageUrls); // Guardar las imágenes adicionales
 
         db.collection("gyms").add(gymData)
                 .addOnSuccessListener(documentReference -> {
